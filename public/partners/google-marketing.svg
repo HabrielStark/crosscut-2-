@@ -1,0 +1,8 @@
+<svg width="200" height="100" viewBox="0 0 200 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <text x="100" y="45" font-family="Arial" font-size="16" fill="#4285F4" text-anchor="middle" font-weight="bold">Google Marketing</text>
+  <text x="100" y="65" font-family="Arial" font-size="16" fill="#4285F4" text-anchor="middle" font-weight="bold">Platform</text>
+  <path d="M60 40 H75 V55 H60 V40" fill="#4285F4"/>
+  <path d="M80 40 H95 V55 H80 V40" fill="#DB4437"/>
+  <path d="M100 40 H115 V55 H100 V40" fill="#F4B400"/>
+  <path d="M120 40 H135 V55 H120 V40" fill="#0F9D58"/>
+</svg> 

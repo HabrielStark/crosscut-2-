@@ -1,0 +1,7 @@
+<svg width="200" height="100" viewBox="0 0 200 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <text x="100" y="70" font-family="Arial" font-size="18" fill="#FFFFFF" text-anchor="middle" font-weight="bold">NEAR</text>
+  <path d="M70 30L90 60M90 30L70 60" stroke="#FFFFFF" stroke-width="4"/>
+  <path d="M100 30v30" stroke="#FFFFFF" stroke-width="4"/>
+  <path d="M110 30h20v30h-20" stroke="#FFFFFF" stroke-width="4" fill="none"/>
+  <path d="M140 30l20 30M160 30l-20 30" stroke="#FFFFFF" stroke-width="4"/>
+</svg> 

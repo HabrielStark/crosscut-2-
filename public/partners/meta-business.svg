@@ -1,0 +1,6 @@
+<svg width="200" height="100" viewBox="0 0 200 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <text x="100" y="60" font-family="Arial" font-size="18" fill="#0064E0" text-anchor="middle" font-weight="bold">Meta Business</text>
+  <path d="M70 35 C70 35 85 35 85 50 C85 65 70 65 70 65" stroke="#0064E0" stroke-width="4" fill="none"/>
+  <path d="M130 35 C130 35 115 35 115 50 C115 65 130 65 130 65" stroke="#0064E0" stroke-width="4" fill="none"/>
+  <path d="M85 50 H115" stroke="#0064E0" stroke-width="4"/>
+</svg> 
