@@ -1,16 +1,22 @@
+import { useRef } from 'react'
+import { motion } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { motion } from "framer-motion"
-import { Mail, MapPin, Lock, FileText, Calendar, Send, Building, Phone, User2 } from 'lucide-react'
+import { Mail, Lock, FileText, Calendar, Send, Building, Phone, User2 } from 'lucide-react'
 import { PageLayout } from "@/components/page-layout"
 import { Canvas } from '@react-three/fiber'
-import { Suspense, useRef } from "react"
 import { OrbitControls } from '@react-three/drei'
+import { Suspense } from 'react'
 import { Particles } from "@/components/three/Particles"
 
 export default function Contact() {
   const formRef = useRef<HTMLFormElement>(null)
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Add your form submission logic here
+  }
 
   return (
     <PageLayout 
@@ -29,7 +35,7 @@ export default function Contact() {
                      border border-[#3444D5]/10 dark:border-[#4A5FFF]/10
                      hover:border-[#3444D5]/20 dark:hover:border-[#4A5FFF]/20
                      transition-all duration-300 space-y-6"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleSubmit}
           >
             {/* Decorative Elements */}
             <div className="absolute -top-12 -right-12 w-24 h-24 bg-[#3444D5]/5 dark:bg-[#4A5FFF]/5 rounded-full" />

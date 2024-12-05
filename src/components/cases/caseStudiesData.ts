@@ -1,20 +1,31 @@
-import { Building2, Blocks, GraduationCap, Users, Wallet, Gamepad2, Radio, Trophy } from 'lucide-react'
+import { 
+  Blocks,
+  Wallet,
+  Building2,
+  GraduationCap,
+  Users,
+  Gamepad,
+  Radio,
+  Building
+} from "lucide-react";
 
 export interface CaseStudy {
-  title: string
-  company: string
-  description: string
-  task: string
-  challenges: string[]
-  solution: string
-  results: string[]
-  icon: any
+  title: string;
+  subtitle: string;
+  description: string;
+  task: string | string[];
+  challenges: string[];
+  solution: string;
+  results: string[];
+  icon: any;
+  images: string[];
 }
 
-export const caseStudiesData: CaseStudy[] = [
-  {
-    title: "Cryptocurrency Exchange",
-    company: "Bybit",
+export const caseStudiesData = {
+  "bybit": {
+    icon: Wallet,
+    title: "Bybit",
+    subtitle: "Cryptocurrency Exchange",
     description: "Bybit is a reliable cryptocurrency exchange, ranked among the top three CEX platforms by CoinMarketCap. Since 2018, it has served over 10 million users, offering more than 100 assets.",
     task: "Increase the number of users for Bybit's cryptocurrency exchange app.",
     challenges: [
@@ -28,11 +39,12 @@ export const caseStudiesData: CaseStudy[] = [
       "1.5 million total reach through SMM, PR, and KOLs",
       "Ranked in the TOP-3 free apps in the App Store"
     ],
-    icon: Wallet
+    images: ["/bybit1.jpeg", "/bybit2.jpeg", "/bybit3.jpeg"]
   },
-  {
-    title: "IT Service Company",
-    company: "PWRTEAMS",
+  "pwrteams": {
+    icon: Building2,
+    title: "PWRTEAMS",
+    subtitle: "IT Service Company",
     description: "PWRTEAMS is a leader in building cross-border IT and engineering teams. Having created over 300 teams, they have achieved significant expertise.",
     task: "Create effective marketing funnels to attract potential clients and improve existing methods.",
     challenges: [
@@ -45,11 +57,12 @@ export const caseStudiesData: CaseStudy[] = [
       "Average session duration tripled to 1:40",
       "Lead conversion doubled to 34%"
     ],
-    icon: Building2
+    images: ["/PWRTEAMS1.jpeg", "/PWRTEAMS2.jpeg", "/PWRTEAMS3.jpeg"]
   },
-  {
-    title: "Educational IT Platform",
-    company: "Mimo",
+  "mimo": {
+    icon: GraduationCap,
+    title: "Mimo",
+    subtitle: "Educational IT Platform",
     description: "Mimo offers programming courses in Python, JavaScript, HTML, SQL, and other languages. Over 25 million students have started new careers using this platform.",
     task: "Increase the number of active users.",
     challenges: [
@@ -61,11 +74,12 @@ export const caseStudiesData: CaseStudy[] = [
       "8% increase in conversion rates",
       "A threefold increase in paying users"
     ],
-    icon: GraduationCap
+    images: ["/mimo1.jpeg", "/mimo2.jpeg", "/mimo3.jpeg"]
   },
-  {
-    title: "IT Service Company",
-    company: "Crombie",
+  "crombie": {
+    icon: Building,
+    title: "Crombie",
+    subtitle: "IT Service Company",
     description: "Crombie provides high-performance teams for IT companies specializing in developing user systems, software, and applications.",
     task: "Boost client interest in Crombie's services.",
     challenges: [
@@ -76,11 +90,12 @@ export const caseStudiesData: CaseStudy[] = [
     results: [
       "An increase in the number of quality leads"
     ],
-    icon: Building2
+    images: []
   },
-  {
-    title: "Global Cryptocurrency and NFT Agency",
-    company: "FINCH Labs",
+  "finch": {
+    icon: Blocks,
+    title: "FINCH Labs",
+    subtitle: "Global Cryptocurrency and NFT Agency",
     description: "FINCH Labs is a global cryptocurrency and NFT agency focused on delivering innovative blockchain solutions.",
     task: "Improve FINCH's website to effectively convey value, reduce bounce rates, and increase engagement to improve lead generation.",
     challenges: [
@@ -95,13 +110,18 @@ export const caseStudiesData: CaseStudy[] = [
       "Increased inquiries",
       "Bounce rate decreased to 40%"
     ],
-    icon: Blocks
+    images: ["/FINCHLABS1.jpeg", "/FINCHLABS2.jpeg", "/FINCHLABS3.jpeg"]
   },
-  {
-    title: "Web3 Platform",
-    company: "Raiinmaker",
-    description: 'Raiinmaker is a Web3 platform for the creator economy built on blockchain, combining smart contracts with marketing budgets and influencers. It fosters a symbiotic relationship between influencers and audiences, enabling direct audience interaction through fans and rewarding their efforts using the "Proof of Influence(TM)" protocol.',
-    task: "Grow the community, increase user engagement and education, boost overall participation levels.",
+  "raiinmaker": {
+    icon: Users,
+    title: "Raiinmaker",
+    subtitle: "Web3 Platform",
+    description: "Raiinmaker is a Web3 platform for the creator economy built on blockchain, combining smart contracts with marketing budgets and influencers. It fosters a symbiotic relationship between influencers and audiences, enabling direct audience interaction through fans and rewarding their efforts using the \"Proof of Influence™\" protocol.",
+    task: [
+      "Grow the community",
+      "Increase user engagement and education",
+      "Boost overall participation levels"
+    ],
     challenges: [
       "Transforming a large group of disinterested users into active participants",
       "Educating users on blockchain and decentralized platform value"
@@ -111,13 +131,18 @@ export const caseStudiesData: CaseStudy[] = [
       "Significant growth in community activity",
       "Increased user base on the platform"
     ],
-    icon: Users
+    images: ["/RAIINMAKER1.jpeg", "/RAIINMAKER2.jpeg", "/RAIINMAKER3.jpeg"]
   },
-  {
-    title: "NFT-Oriented Sports Metaverse Project",
-    company: "Crypto Players Club",
+  "cpc": {
+    icon: Gamepad,
+    title: "Crypto Players Club",
+    subtitle: "NFT-Oriented Sports Metaverse Project",
     description: "CPC aims to revolutionize football by creating a decentralized ecosystem for players, clubs, and fans worldwide. The project combines football games with a Play-to-Earn (P2E) platform, offering users a unique experience.",
-    task: "Develop an authentic and engaged community, increase user base and brand recognition, enhance user engagement.",
+    task: [
+      "Develop an authentic and engaged community",
+      "Increase user base and brand recognition",
+      "Enhance user engagement"
+    ],
     challenges: [
       "Difficulty standing out in the crowded sports NFT market",
       "Challenges in conveying the value of NFTs to football fans"
@@ -127,13 +152,18 @@ export const caseStudiesData: CaseStudy[] = [
       "Gained 8,700 Twitter followers in the first two months",
       "Achieved 371,000 profile visits across social media"
     ],
-    icon: Gamepad2
+    images: ["/CPC1.jpeg", "/CPC2.jpeg", "/CPC3.jpeg"]
   },
-  {
-    title: "Media Platform",
-    company: "Script.TV",
+  "script": {
+    icon: Radio,
+    title: "Script.TV",
+    subtitle: "Media Platform",
     description: "Script.TV is a blockchain-based media platform aiming to revolutionize live TV consumption. With integrated GameFi and SocialFi elements, viewers can earn rewards for watching and engaging with content.",
-    task: "Increase user base, build an active community, sustain growth through social media.",
+    task: [
+      "Increase user base",
+      "Build an active community",
+      "Sustain growth through social media"
+    ],
     challenges: [
       "Difficulty attracting users organically",
       "Limited resources for marketing campaigns"
@@ -144,6 +174,6 @@ export const caseStudiesData: CaseStudy[] = [
       "Boosted Discord activity to 4,444 active members",
       "Attracted 400 platform users in the first months of the campaign"
     ],
-    icon: Radio
+    images: ["/SCRIPT.TV1.jpeg", "/SCRIPT.TV2.jpeg", "/SCRIPT.TV3.jpeg"]
   }
-] 
+} as Record<string, CaseStudy>; 

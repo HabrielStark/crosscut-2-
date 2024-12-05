@@ -1,5 +1,5 @@
+import { Calendar, ArrowLeft } from "lucide-react";
 import { PageLayout } from "@/components/page-layout"
-import { Calendar, Heart, Share2, Tag, Eye, MessageCircle, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Link, useParams } from "react-router-dom"
 import { blogPosts } from "../page"
@@ -11,6 +11,27 @@ const createSlug = (title: string) => {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
 };
+
+interface BlogPost {
+  id: number;
+  title: string;
+  excerpt: string;
+  content: {
+    introduction: string;
+    sections: Array<{
+      title: string;
+      content: string;
+    }>;
+  };
+  category: string;
+  date: string;
+  image: string;
+  author: {
+    name: string;
+    avatar: string;
+  };
+  readTime: string;
+}
 
 export default function BlogPost() {
   const { slug } = useParams();

@@ -1,9 +1,7 @@
-import { useEffect, useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Partners } from '@/components/partners'
 
 export default function Home() {
-  const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll()
   
   const textOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])

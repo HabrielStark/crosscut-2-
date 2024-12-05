@@ -1,6 +1,5 @@
 import { motion } from "framer-motion"
 import { TeamMember } from "@/components/team-member"
-import { PartnerLogo } from "@/components/partner-logo"
 import { PageLayout } from "@/components/page-layout"
 
 export default function About() {

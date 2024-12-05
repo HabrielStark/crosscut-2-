@@ -1,444 +1,360 @@
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { ArrowRight, X, ExternalLink } from "lucide-react"
-import { caseStudiesData, type CaseStudy } from './caseStudiesData'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence, useAnimation } from 'framer-motion'
+import { caseStudiesData } from './caseStudiesData'
 import { Tilt } from 'react-tilt'
+import { X, ExternalLink, ArrowRight } from 'lucide-react'
 
-const caseImages = {
-    "Bybit": [
-      "/bybit1.jpeg",
-      "/bybit2.jpeg",
-      "/bybit3.jpeg"
-    ],
-    "PWRTEAMS": [
-      "/PWRTEAMS1.jpeg",
-      "/PWRTEAMS2.jpeg",
-      "/PWRTEAMS3.jpeg"
-    ],
-    "Mimo": [
-      "/mimo1.jpeg",
-      "/mimo2.jpeg",
-      "/mimo3.jpeg"
-    ],
-    "FINCH Labs": [
-      "/FINCHLABS1.jpeg",
-      "/FINCHLABS2.jpeg",
-      "/FINCHLABS3.jpeg"
-    ],
-    "Raiinmaker": [
-      "/FINCHLABS1.jpeg",
-      "/FINCHLABS2.jpeg",
-      "/FINCHLABS3.jpeg"
-    ],
-    "Crypto Players Club": [
-      "/CPC1.jpeg",
-      "/CPC2.jpeg",
-      "/CPC3.jpeg"
-    ],
-    "Script.TV": [
-      "/SCRIPT.TV1.jpeg",
-      "/SCRIPT.TV2.jpeg",
-      "/SCRIPT.TV3.jpeg"
-    ]
-} as const;
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
 
-type CompanyName = keyof typeof caseImages;
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5
+    }
+  }
+};
 
-const CaseGallery = ({ company }: { company: CompanyName }) => {
-  if (!caseImages[company] || company === "Crombie") return null;
-
-  return (
-    <div className="grid grid-cols-3 gap-4 mb-8">
-      {caseImages[company].map((imagePath, index) => (
-        <div key={index} className="relative aspect-video rounded-lg overflow-hidden group/image">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#3444D5]/10 to-[#FE5431]/10
-                        dark:from-[#3444D5]/20 dark:to-[#FE5431]/20 group-hover/image:opacity-0 transition-opacity" />
-          <img
-            src={imagePath}
-            alt={`${company} screenshot ${index + 1}`}
-            className="w-full h-full object-cover rounded-lg transform group-hover/image:scale-105 transition-transform"
-          />
-        </div>
-      ))}
-    </div>
-  );
+const glowVariants = {
+  initial: { backgroundPosition: "0% 50%" },
+  animate: { 
+    backgroundPosition: "100% 50%",
+    transition: { 
+      duration: 5,
+      ease: "linear",
+      repeat: Infinity,
+      repeatType: "reverse" as const
+    }
+  }
 };
 
 export function CaseStudies() {
-  const [selectedCase, setSelectedCase] = useState<CaseStudy | null>(null)
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [selectedCase, setSelectedCase] = useState<keyof typeof caseStudiesData | null>(null);
+  const [isHovered, setIsHovered] = useState<string | null>(null);
+  const controls = useAnimation();
+
+  useEffect(() => {
+    controls.start("animate");
+  }, [controls]);
+
+  const IconComponent = selectedCase ? caseStudiesData[selectedCase].icon : null;
 
   return (
-    <div className="py-24">
-      {/* Hero Section with 3D Gradient Animation */}
-      <div className="container mx-auto px-4 mb-24 relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#3444D5]/20 to-[#FE5431]/20 blur-3xl" />
-        <motion.h1 
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-[#000531] dark:to-[#000531] overflow-hidden relative">
+      <motion.div
+        className="absolute inset-0 opacity-30"
+        variants={glowVariants}
+        initial="initial"
+        animate={controls}
+        style={{
+          background: "linear-gradient(45deg, transparent 0%, rgba(99, 102, 241, 0.03) 25%, transparent 50%, rgba(139, 92, 246, 0.03) 75%, transparent 100%)",
+          backgroundSize: "200% 200%"
+        }}
+      />
+      
+      <div className="container mx-auto px-4 py-24 relative">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-[#3444D5] to-[#FE5431] mb-8 relative"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-24"
         >
-          Our Case Studies
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-2xl text-center text-[#0A0320]/70 dark:text-white/70 max-w-3xl mx-auto relative"
-        >
-          Discover how we've helped businesses achieve their goals through innovative solutions and strategic thinking
-        </motion.p>
-      </div>
-
-      {/* Cases Grid with Enhanced Cards */}
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-          {caseStudiesData.map((caseItem, index) => (
-            <Tilt
-              key={caseItem.title}
-              options={{
-                max: 5,
-                scale: 1.01,
-                speed: 500,
-                glare: false,
-              }}
+          <div className="inline-block relative">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="h-px bg-gradient-to-r from-transparent via-purple-600 to-transparent dark:via-purple-400 mb-8"
+            />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="relative z-10"
             >
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                onClick={() => setSelectedCase(caseItem)}
-                onHoverStart={() => setHoveredIndex(index)}
-                onHoverEnd={() => setHoveredIndex(null)}
-                className="relative group cursor-pointer h-full"
+              <h2 className="text-sm font-semibold text-purple-600 dark:text-purple-400 tracking-wider uppercase mb-3">
+                Our Portfolio
+              </h2>
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gray-900 dark:text-white relative">
+                Success{" "}
+                <span className="relative">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400">
+                    Stories
+                  </span>
+                  <motion.span
+                    className="absolute -inset-1 bg-gradient-to-r from-purple-600/20 to-blue-600/20 dark:from-purple-400/20 dark:to-blue-400/20 blur-lg"
+                    animate={{
+                      opacity: [0.5, 0.8, 0.5],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                    }}
+                  />
+                </span>
+              </h1>
+              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
+                Discover how we've helped businesses transform their digital presence and achieve remarkable results
+              </p>
+            </motion.div>
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="h-px bg-gradient-to-r from-transparent via-purple-600 to-transparent dark:via-purple-400"
+            />
+          </div>
+        </motion.div>
+        
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {Object.entries(caseStudiesData).map(([key, caseItem]) => {
+            const ItemIcon = caseItem.icon;
+            return (
+              <motion.div
+                key={key}
+                variants={itemVariants}
+                className="h-full"
+                onHoverStart={() => setIsHovered(key)}
+                onHoverEnd={() => setIsHovered(null)}
               >
-                {/* Animated Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#3444D5]/10 via-[#FE5431]/5 to-transparent rounded-2xl 
-                              transition-all duration-200" />
-                
-                {/* Card Content */}
-                <div className="glass-card relative overflow-hidden rounded-2xl p-8 border border-[#3444D5]/20
-                              backdrop-blur-sm bg-white/30 dark:bg-[#000531]/30 h-full
-                              group-hover:border-[#3444D5]/40 transition-all duration-200">
-                  {/* Icon Badge */}
-                  <div className="absolute -top-4 -left-4 w-20 h-20 rounded-2xl bg-gradient-to-br 
-                                from-[#3444D5] to-[#FE5431] flex items-center justify-center
-                                shadow-lg transition-all duration-200">
-                    <caseItem.icon className="w-10 h-10 text-white" />
-                  </div>
-
-                  <div className="mt-12">
-                    {/* Company Badge */}
-                    <div className="inline-flex items-center px-4 py-2 rounded-full bg-[#3444D5]/10 dark:bg-white/10
-                                  text-[#3444D5] dark:text-white text-sm font-semibold mb-4 ml-6">
-                      {caseItem.title}
-                    </div>
-                    
-                    {/* Title */}
-                    <h3 className="text-3xl font-bold text-[#0A0320] dark:text-white mb-4 pl-6
-                                 group-hover:text-[#3444D5] dark:group-hover:text-[#3444D5] transition-colors">
-                      {caseItem.company}
-                    </h3>
-                    
-                    {/* Description */}
-                    <p className="text-[#0A0320]/70 dark:text-white/70 mb-6 pl-6 line-clamp-3
-                                group-hover:text-[#0A0320] dark:group-hover:text-white/90 transition-colors">
-                      {caseItem.description}
-                    </p>
-                    
-                    {/* Results Preview */}
-                    <div className="pl-6 mb-8 space-y-3">
-                      {caseItem.results.slice(0, 2).map((result, idx) => (
+                <Tilt options={{ max: 15, scale: 1.02, speed: 1000 }}>
+                  <motion.div 
+                    onClick={() => setSelectedCase(key as keyof typeof caseStudiesData)}
+                    className="relative group cursor-pointer h-full"
+                    whileHover={{ y: -5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div className="relative h-full p-8 rounded-2xl bg-white dark:bg-[#0a0f3b] shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-blue-900/20 overflow-hidden">
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-blue-600/5 dark:from-blue-500/5 dark:to-blue-500/5"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: isHovered === key ? 1 : 0 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent dark:from-[#0a0f3b] dark:via-transparent dark:to-transparent"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: isHovered === key ? 0.2 : 0 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                      
+                      {ItemIcon && (
                         <motion.div 
-                          key={idx}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.3 + idx * 0.1 }}
-                          className="flex items-center gap-3"
+                          className="relative z-10 mb-6"
+                          animate={isHovered === key ? { scale: 1.1 } : { scale: 1 }}
+                          transition={{ duration: 0.2 }}
                         >
-                          <div className="w-2 h-2 rounded-full bg-[#3444D5]" />
-                          <span className="text-[#0A0320]/80 dark:text-white/80 text-sm">
-                            {result}
-                          </span>
+                          <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl w-fit">
+                            <ItemIcon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                          </div>
                         </motion.div>
-                      ))}
-                    </div>
-                    
-                    {/* Action Button */}
-                    <motion.div 
-                      animate={hoveredIndex === index ? { x: 10 } : { x: 0 }}
-                      className="pl-6"
-                    >
-                      <Button 
-                        variant="outline" 
-                        className="bg-gradient-to-r from-[#3444D5] to-[#FE5431] text-white border-none
-                                 hover:opacity-90 transition-all duration-300 group/btn"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          setSelectedCase(caseItem)
-                        }}
+                      )}
+                      
+                      <motion.h3 
+                        className="text-2xl font-bold mb-2 text-gray-900 dark:text-white relative z-10"
+                        animate={isHovered === key ? { x: 5 } : { x: 0 }}
+                        transition={{ duration: 0.2 }}
                       >
-                        View Case Study
-                        <ExternalLink className="ml-2 h-4 w-4 group-hover/btn:rotate-45 transition-transform" />
-                      </Button>
-                    </motion.div>
-                  </div>
-
-                  {/* Decorative Elements */}
-                  <div className="absolute -bottom-6 -right-6 w-32 h-32 rounded-full 
-                                bg-gradient-to-br from-[#3444D5]/20 to-[#FE5431]/20 blur-2xl
-                                transition-transform duration-200" />
-                </div>
+                        {caseItem.title}
+                      </motion.h3>
+                      <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-4 relative z-10">
+                        {caseItem.subtitle}
+                      </p>
+                      <p className="text-gray-600 dark:text-gray-300 text-sm relative z-10 mb-6 line-clamp-3">
+                        {caseItem.description}
+                      </p>
+                      <motion.div 
+                        className="relative z-10 flex items-center text-blue-600 dark:text-blue-400 text-sm font-medium mt-auto group"
+                        animate={isHovered === key ? { x: 5 } : { x: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <span className="mr-2">View Case Study</span>
+                        <motion.div
+                          animate={isHovered === key ? { 
+                            rotate: 45,
+                            scale: 1.1
+                          } : { 
+                            rotate: 0,
+                            scale: 1
+                          }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </motion.div>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                </Tilt>
               </motion.div>
-            </Tilt>
-          ))}
-        </div>
+            );
+          })}
+        </motion.div>
       </div>
 
-      {/* Enhanced Modal with 3D and Gradient Effects */}
       <AnimatePresence>
         {selectedCase && (
           <motion.div 
+            className="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center overflow-y-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-xl flex items-center justify-center p-4 z-50"
             onClick={() => setSelectedCase(null)}
           >
-            <motion.div 
-              initial={{ scale: 0.95, y: 20, opacity: 0 }}
-              animate={{ scale: 1, y: 0, opacity: 1 }}
-              exit={{ scale: 0.95, y: 20, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-gradient-to-br from-white via-white to-[#3444D5]/5 
-                        dark:from-[#000531] dark:via-[#000531] dark:to-[#3444D5]/20 
-                        rounded-3xl max-w-5xl w-full overflow-hidden
-                        border border-[#3444D5]/20 shadow-2xl relative"
-            >
-              {/* Background Decorative Elements */}
-              <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute -top-32 -right-32 w-64 h-64 rounded-full 
-                              bg-gradient-to-br from-[#3444D5]/10 to-[#FE5431]/10
-                              dark:from-[#3444D5]/20 dark:to-[#FE5431]/20 blur-3xl" />
-                <div className="absolute -bottom-32 -left-32 w-64 h-64 rounded-full 
-                              bg-gradient-to-br from-[#FE5431]/10 to-[#3444D5]/10
-                              dark:from-[#FE5431]/20 dark:to-[#3444D5]/20 blur-3xl" />
-              </div>
+            <div className="min-h-screen py-8 px-4 flex items-center justify-center">
+              <motion.div 
+                className="bg-white dark:bg-[#0a0f3b] rounded-2xl w-full max-w-5xl relative"
+                onClick={(e) => e.stopPropagation()}
+                initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="relative p-8">
+                  <motion.button
+                    onClick={() => setSelectedCase(null)}
+                    className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors z-50"
+                    whileHover={{ rotate: 90 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <X className="w-6 h-6 text-gray-900 dark:text-white" />
+                  </motion.button>
 
-              <div className="relative">
-                {/* Header Section */}
-                <div className="p-10 pb-6 border-b border-[#3444D5]/10">
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className="p-4 rounded-2xl bg-gradient-to-br from-[#3444D5] to-[#FE5431]
-                                      shadow-lg shadow-[#3444D5]/20">
-                          <selectedCase.icon className="w-8 h-8 text-white" />
-                        </div>
-                        <div className="inline-flex items-center px-4 py-2 rounded-full 
-                                    bg-[#3444D5]/10 backdrop-blur-sm
-                                    text-[#3444D5] font-semibold">
-                          {selectedCase.title}
-                        </div>
+                  <motion.div 
+                    className="flex items-center gap-4 mb-24"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    {IconComponent && (
+                      <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
+                        <IconComponent className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                       </div>
-                      <motion.h2 
-                        initial={{ x: -20 }}
-                        animate={{ x: 0 }}
-                        className="text-4xl font-bold bg-clip-text text-transparent 
-                                 bg-gradient-to-r from-[#0A0320] to-[#3444D5]
-                                 dark:from-white dark:to-[#3444D5]"
-                      >
-                        {selectedCase.company}
-                      </motion.h2>
+                    )}
+                    <div>
+                      <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+                        {caseStudiesData[selectedCase].title}
+                      </h2>
+                      <p className="text-lg text-blue-600 dark:text-blue-400">
+                        {caseStudiesData[selectedCase].subtitle}
+                      </p>
                     </div>
-                    <button 
-                      onClick={() => setSelectedCase(null)}
-                      className="text-[#0A0320] hover:text-[#3444D5] dark:text-white dark:hover:text-[#3444D5] 
-                               transition-colors p-2 hover:bg-[#3444D5]/10 rounded-full"
-                    >
-                      <X className="h-6 w-6" />
-                    </button>
-                  </div>
-                </div>
+                  </motion.div>
 
-                {/* Content Section with Custom Scrollbar */}
-                <div className="p-10 max-h-[70vh] overflow-y-auto
-                              scrollbar-thin scrollbar-thumb-[#3444D5]/20 scrollbar-track-transparent">
-                  <div className="space-y-10">
-                    {/* Description */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="bg-white dark:bg-[#000531] p-8 rounded-2xl relative group
-                               border border-[#3444D5]/10 hover:border-[#3444D5]/20 transition-colors"
-                    >
-                      {/* Image Gallery */}
-                      <CaseGallery company={selectedCase.company} />
+                  {caseStudiesData[selectedCase].images.length > 0 && (
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20 mt-12">
+                      {caseStudiesData[selectedCase].images.map((image, index) => (
+                        <motion.div
+                          key={index}
+                          className="relative aspect-video rounded-xl overflow-hidden cursor-pointer group shadow-lg"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          whileHover={{ scale: 1.05 }}
+                        >
+                          <img
+                            src={image}
+                            alt={`${caseStudiesData[selectedCase].title} case study ${index + 1}`}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
 
-                      <div className="relative">
-                        <h3 className="text-[#3444D5] text-2xl font-semibold mb-6 flex items-center gap-3">
-                          <div className="p-2 rounded-lg bg-[#3444D5]/10">
-                            <span className="text-lg">📋</span>
-                          </div>
-                          Description
-                          <div className="h-px flex-1 bg-gradient-to-r from-[#3444D5]/20 to-transparent" />
-                        </h3>
-                        <p className="text-[#0A0320] dark:text-white/90 text-lg leading-relaxed">
-                          {selectedCase.description}
-                        </p>
-                      </div>
-                    </motion.div>
-
-                    {/* Task */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 }}
-                      className="bg-white dark:bg-[#000531] p-8 rounded-2xl relative group
-                               border border-[#3444D5]/10 hover:border-[#3444D5]/20 transition-colors"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#3444D5]/5 to-transparent 
-                                    dark:from-[#3444D5]/10 dark:to-transparent
-                                    rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <div className="relative">
-                        <h3 className="text-[#3444D5] text-2xl font-semibold mb-6 flex items-center gap-3">
-                          <div className="p-2 rounded-lg bg-[#3444D5]/10">
-                            <span className="text-lg">🎯</span>
-                          </div>
-                          Task
-                          <div className="h-px flex-1 bg-gradient-to-r from-[#3444D5]/20 to-transparent" />
-                        </h3>
-                        <p className="text-[#0A0320] dark:text-white/90 text-lg leading-relaxed">
-                          {selectedCase.task}
-                        </p>
-                      </div>
-                    </motion.div>
-
-                    {/* Challenges */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 }}
-                      className="bg-white dark:bg-[#000531] p-8 rounded-2xl relative group
-                               border border-[#3444D5]/10 hover:border-[#3444D5]/20 transition-colors"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#3444D5]/5 to-transparent 
-                                    dark:from-[#3444D5]/10 dark:to-transparent
-                                    rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <div className="relative">
-                        <h3 className="text-[#3444D5] text-2xl font-semibold mb-6 flex items-center gap-3">
-                          <div className="p-2 rounded-lg bg-[#3444D5]/10">
-                            <span className="text-lg">⚡️</span>
-                          </div>
-                          Challenges
-                          <div className="h-px flex-1 bg-gradient-to-r from-[#3444D5]/20 to-transparent" />
-                        </h3>
-                        <ul className="space-y-6">
-                          {selectedCase.challenges.map((challenge, index) => (
-                            <motion.li 
-                              key={index}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.3 + index * 0.1 }}
-                              className="flex gap-6 items-start group/item"
-                            >
-                              <div className="relative">
-                                <div className="absolute inset-0 bg-gradient-to-br from-[#3444D5] to-[#FE5431] blur-lg opacity-50
-                                              group-hover/item:opacity-100 transition-opacity" />
-                                <span className="relative flex items-center justify-center w-12 h-12 rounded-xl 
-                                             bg-gradient-to-br from-[#3444D5] to-[#FE5431] text-white text-lg font-semibold
-                                             group-hover/item:scale-110 transition-transform">
-                                  {index + 1}
-                                </span>
-                              </div>
-                              <span className="text-[#0A0320] dark:text-white/90 text-lg leading-relaxed pt-2 flex-1">
-                                {challenge}
-                              </span>
-                            </motion.li>
-                          ))}
-                        </ul>
-                      </div>
-                    </motion.div>
-
-                    {/* Solution */}
-                    <motion.div 
+                  <div className="grid gap-6">
+                    <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.3 }}
-                      className="bg-white dark:bg-[#000531] p-8 rounded-2xl relative group
-                               border border-[#3444D5]/10 hover:border-[#3444D5]/20 transition-colors"
+                      className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-100 hover:border-blue-200 dark:border-blue-900/30 dark:hover:border-blue-900/50 transition-colors"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#3444D5]/5 to-transparent 
-                                    dark:from-[#3444D5]/10 dark:to-transparent
-                                    rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <div className="relative">
-                        <h3 className="text-[#3444D5] text-2xl font-semibold mb-6 flex items-center gap-3">
-                          <div className="p-2 rounded-lg bg-[#3444D5]/10">
-                            <span className="text-lg">💡</span>
-                          </div>
-                          Solution
-                          <div className="h-px flex-1 bg-gradient-to-r from-[#3444D5]/20 to-transparent" />
-                        </h3>
-                        <p className="text-[#0A0320] dark:text-white/90 text-lg leading-relaxed">
-                          {selectedCase.solution}
+                      <h3 className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-3 flex items-center">
+                        <span className="mr-2">Task</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </h3>
+                      {Array.isArray(caseStudiesData[selectedCase].task) ? (
+                        <ul className="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300">
+                          {caseStudiesData[selectedCase].task.map((task, index) => (
+                            <li key={index}>{task}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="text-gray-600 dark:text-gray-300">
+                          {caseStudiesData[selectedCase].task}
                         </p>
-                      </div>
+                      )}
                     </motion.div>
 
-                    {/* Results */}
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.4 }}
-                      className="bg-white dark:bg-[#000531] p-8 rounded-2xl relative group
-                               border border-[#3444D5]/10 hover:border-[#3444D5]/20 transition-colors"
+                      className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-100 hover:border-blue-200 dark:border-blue-900/30 dark:hover:border-blue-900/50 transition-colors"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#3444D5]/5 to-transparent 
-                                    dark:from-[#3444D5]/10 dark:to-transparent
-                                    rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <div className="relative">
-                        <h3 className="text-[#3444D5] text-2xl font-semibold mb-6 flex items-center gap-3">
-                          <div className="p-2 rounded-lg bg-[#3444D5]/10">
-                            <span className="text-lg">🏆</span>
-                          </div>
-                          Results
-                          <div className="h-px flex-1 bg-gradient-to-r from-[#3444D5]/20 to-transparent" />
-                        </h3>
-                        <ul className="space-y-6">
-                          {selectedCase.results.map((result, index) => (
-                            <motion.li 
-                              key={index}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.5 + index * 0.1 }}
-                              className="flex gap-6 items-start group/item"
-                            >
-                              <div className="relative">
-                                <div className="absolute inset-0 bg-gradient-to-br from-[#3444D5] to-[#FE5431] blur-lg opacity-50
-                                              group-hover/item:opacity-100 transition-opacity" />
-                                <span className="relative flex items-center justify-center w-12 h-12 rounded-xl 
-                                             bg-gradient-to-br from-[#3444D5] to-[#FE5431] text-white text-lg font-semibold
-                                             group-hover/item:scale-110 transition-transform">
-                                  ✓
-                                </span>
-                              </div>
-                              <span className="text-[#0A0320] dark:text-white/90 text-lg leading-relaxed pt-2 flex-1">
-                                {result}
-                              </span>
-                            </motion.li>
-                          ))}
-                        </ul>
-                      </div>
+                      <h3 className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-3 flex items-center">
+                        <span className="mr-2">Challenges</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </h3>
+                      <ul className="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300">
+                        {caseStudiesData[selectedCase].challenges.map((challenge, index) => (
+                          <li key={index}>{challenge}</li>
+                        ))}
+                      </ul>
+                    </motion.div>
+
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5 }}
+                      className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-100 hover:border-blue-200 dark:border-blue-900/30 dark:hover:border-blue-900/50 transition-colors"
+                    >
+                      <h3 className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-3 flex items-center">
+                        <span className="mr-2">Solution</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-300">{caseStudiesData[selectedCase].solution}</p>
+                    </motion.div>
+
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6 }}
+                      className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-100 hover:border-blue-200 dark:border-blue-900/30 dark:hover:border-blue-900/50 transition-colors"
+                    >
+                      <h3 className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-3 flex items-center">
+                        <span className="mr-2">Results</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </h3>
+                      <ul className="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300">
+                        {caseStudiesData[selectedCase].results.map((result, index) => (
+                          <li key={index}>{result}</li>
+                        ))}
+                      </ul>
                     </motion.div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
-  )
+  );
 } 
