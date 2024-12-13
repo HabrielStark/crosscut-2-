@@ -224,11 +224,16 @@ export function CaseStudies() {
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.95, opacity: 0, y: 20 }}
                 transition={{ duration: 0.3 }}
+                style={{
+                  maxHeight: 'calc(95vh - 40px)',
+                  height: 'auto',
+                  overflowY: 'auto'
+                }}
               >
-                <div className="relative p-8">
+                <div className="relative p-8 md:p-12">
                   <motion.button
                     onClick={() => setSelectedCase(null)}
-                    className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors z-50"
+                    className="sticky top-0 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors z-50 float-right"
                     whileHover={{ rotate: 90 }}
                     transition={{ duration: 0.2 }}
                   >
@@ -236,7 +241,7 @@ export function CaseStudies() {
                   </motion.button>
 
                   <motion.div 
-                    className="flex items-center gap-4 mb-24"
+                    className="flex items-center gap-4 mb-12"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
@@ -255,28 +260,6 @@ export function CaseStudies() {
                       </p>
                     </div>
                   </motion.div>
-
-                  {caseStudiesData[selectedCase].images.length > 0 && (
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20 mt-12">
-                      {caseStudiesData[selectedCase].images.map((image, index) => (
-                        <motion.div
-                          key={index}
-                          className="relative aspect-video rounded-xl overflow-hidden cursor-pointer group shadow-lg"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                          whileHover={{ scale: 1.05 }}
-                        >
-                          <img
-                            src={image}
-                            alt={`${caseStudiesData[selectedCase].title} case study ${index + 1}`}
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        </motion.div>
-                      ))}
-                    </div>
-                  )}
 
                   <div className="grid gap-6">
                     <motion.div
@@ -336,19 +319,171 @@ export function CaseStudies() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.6 }}
-                      className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-100 hover:border-blue-200 dark:border-blue-900/30 dark:hover:border-blue-900/50 transition-colors"
+                      className="relative overflow-hidden"
                     >
-                      <h3 className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-3 flex items-center">
-                        <span className="mr-2">Results</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </h3>
-                      <ul className="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300">
-                        {caseStudiesData[selectedCase].results.map((result, index) => (
-                          <li key={index}>{result}</li>
-                        ))}
-                      </ul>
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/20 to-pink-600/20 dark:from-blue-500/30 dark:via-purple-500/30 dark:to-pink-500/30 blur-2xl"
+                        animate={{
+                          scale: [1, 1.2, 1],
+                          rotate: [0, 10, 0],
+                          background: [
+                            "linear-gradient(to right bottom, rgba(37, 99, 235, 0.2), rgba(147, 51, 234, 0.2), rgba(236, 72, 153, 0.2))",
+                            "linear-gradient(to right bottom, rgba(236, 72, 153, 0.2), rgba(37, 99, 235, 0.2), rgba(147, 51, 234, 0.2))",
+                            "linear-gradient(to right bottom, rgba(147, 51, 234, 0.2), rgba(236, 72, 153, 0.2), rgba(37, 99, 235, 0.2))"
+                          ]
+                        }}
+                        transition={{
+                          duration: 8,
+                          repeat: Infinity,
+                          repeatType: "reverse"
+                        }}
+                      />
+                      <div className="relative bg-white/90 dark:bg-[#0a0f3b]/90 backdrop-blur-md rounded-2xl p-10 border border-blue-100 hover:border-blue-200 dark:border-blue-900/30 dark:hover:border-blue-900/50 transition-all duration-500 hover:shadow-xl hover:shadow-blue-500/10">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-2xl transform translate-x-16 -translate-y-16" />
+                        <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-purple-500/10 to-pink-500/10 rounded-full blur-2xl transform -translate-x-16 translate-y-16" />
+                        
+                        <div className="flex items-center justify-between mb-8">
+                          <motion.h3 
+                            className="text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent flex items-center"
+                            animate={{
+                              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                            }}
+                            transition={{
+                              duration: 5,
+                              repeat: Infinity,
+                              repeatType: "reverse"
+                            }}
+                            style={{
+                              backgroundSize: "200% auto"
+                            }}
+                          >
+                            <span className="mr-4">Impressive Results</span>
+                            <motion.div
+                              animate={{
+                                rotate: 360
+                              }}
+                              transition={{
+                                duration: 20,
+                                repeat: Infinity,
+                                ease: "linear"
+                              }}
+                            >
+                              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none">
+                                <motion.path
+                                  d="M12 2L2 7L12 12L22 7L12 2Z"
+                                  stroke="url(#gradient)"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                                <motion.path
+                                  d="M2 17L12 22L22 17"
+                                  stroke="url(#gradient)"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                                <motion.path
+                                  d="M2 12L12 17L22 12"
+                                  stroke="url(#gradient)"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                                <defs>
+                                  <linearGradient id="gradient" x1="2" y1="2" x2="22" y2="22">
+                                    <stop stopColor="#3B82F6" />
+                                    <stop offset="0.5" stopColor="#9333EA" />
+                                    <stop offset="1" stopColor="#EC4899" />
+                                  </linearGradient>
+                                </defs>
+                              </svg>
+                            </motion.div>
+                          </motion.h3>
+                        </div>
+
+                        <ul className="space-y-6 relative">
+                          {caseStudiesData[selectedCase].results.map((result, index) => (
+                            <motion.li
+                              key={index}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: 0.7 + index * 0.15 }}
+                              className="flex items-start group"
+                            >
+                              <motion.div
+                                className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 p-[2px] mr-4 group-hover:scale-110 transition-transform duration-300"
+                                whileHover={{ rotate: 180 }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                <div className="w-full h-full rounded-xl bg-white dark:bg-[#0a0f3b] flex items-center justify-center">
+                                  <span className="text-transparent bg-clip-text bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 font-bold">
+                                    {index + 1}
+                                  </span>
+                                </div>
+                              </motion.div>
+                              <motion.p
+                                className="text-xl text-gray-700 dark:text-gray-200 leading-relaxed group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:via-purple-500 group-hover:to-pink-500 transition-all duration-300"
+                                whileHover={{ scale: 1.02 }}
+                              >
+                                {result}
+                              </motion.p>
+                            </motion.li>
+                          ))}
+                        </ul>
+
+                        <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
+                          <motion.div
+                            className="text-9xl font-bold text-blue-500/5 dark:text-blue-400/5"
+                            animate={{
+                              opacity: [0.3, 0.1, 0.3],
+                              scale: [1, 1.1, 1]
+                            }}
+                            transition={{
+                              duration: 3,
+                              repeat: Infinity,
+                              repeatType: "reverse"
+                            }}
+                          >
+                            ★
+                          </motion.div>
+                        </div>
+                      </div>
                     </motion.div>
                   </div>
+
+                  {caseStudiesData[selectedCase].images.length > 0 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.7 }}
+                      className="mt-8"
+                    >
+                      <h3 className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-6 flex items-center">
+                        <span className="mr-2">Project Gallery</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {caseStudiesData[selectedCase].images.map((image, index) => (
+                          <motion.div
+                            key={index}
+                            className="relative aspect-video rounded-xl overflow-hidden cursor-pointer group shadow-lg"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.8 + index * 0.1 }}
+                            whileHover={{ scale: 1.05 }}
+                          >
+                            <img
+                              src={image}
+                              alt={`${caseStudiesData[selectedCase].title} case study ${index + 1}`}
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
                 </div>
               </motion.div>
             </div>

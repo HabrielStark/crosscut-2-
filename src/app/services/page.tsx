@@ -1,22 +1,12 @@
 import { PageLayout } from "@/components/page-layout"
 import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
 import { 
   Target, 
   TrendingUp, 
   Globe2, 
-  Palette, 
-  Zap, 
-  BarChart3,
-  CheckCircle,
-  ArrowRight
+  Palette,
+  CheckCircle
 } from 'lucide-react'
-import { Canvas } from '@react-three/fiber'
-import { Suspense } from "react"
-import { OrbitControls, Float } from '@react-three/drei'
-import { GradientSphere } from "@/components/three/GradientSphere"
-import { Particles } from "@/components/three/Particles"
-import { FloatingText } from "@/components/three/FloatingText"
 
 export default function Services() {
   return (
@@ -24,46 +14,10 @@ export default function Services() {
       title="Ready to Realize Your Wildest Ideas and Goals"
       subtitle="We use only Innovative Technologies and a Customized Approach for each client."
     >
-      {/* Enhanced 3D Background */}
-      <div className="fixed inset-0 -z-10">
-        <Canvas>
-          <OrbitControls 
-            enableZoom={false} 
-            enablePan={false}
-            maxPolarAngle={Math.PI / 2}
-            minPolarAngle={Math.PI / 2}
-          />
-          <ambientLight intensity={0.5} />
-          <Suspense fallback={null}>
-            <Particles 
-              count={1000}
-              size={0.02}
-              spread={20}
-              color="#8B5CF6"
-              opacity={0.6}
-            />
-            <Float 
-              speed={2} 
-              rotationIntensity={0.5} 
-              floatIntensity={0.5}
-              position={[0, 2, 0]}
-            >
-              <GradientSphere />
-              <FloatingText 
-                text="Services"
-                scale={0.5}
-                color="#8B5CF6"
-                emissiveIntensity={0.4}
-              />
-            </Float>
-          </Suspense>
-        </Canvas>
-      </div>
-
-      {/* Services Grid with Enhanced Layout */}
-      <section className="px-4 sm:px-6 lg:px-8 py-12">
+      {/* Services Section */}
+      <section className="px-4 sm:px-6 lg:px-8 py-16">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 auto-rows-fr">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {services.map((service, index) => (
               <motion.div
                 key={service.title}
@@ -71,43 +25,26 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="glass-card group hover:bg-white/5 dark:hover:bg-[#4A5FFF]/5 h-full flex flex-col dark:bg-[#000531]/50"
+                className="bg-white/50 dark:bg-[#0A0320]/50 rounded-xl p-8 border border-[#3444D5]/10 dark:border-[#4A5FFF]/10 hover:border-[#3444D5]/20 dark:hover:border-[#4A5FFF]/20 transition-all"
               >
-                <div className="flex flex-col h-full p-6">
-                  <div className="flex items-center gap-4 mb-6">
-                    <span className="text-4xl text-primary dark:text-[#4A5FFF]">{service.icon}</span>
-                    <span className="text-5xl font-bold text-primary/30 dark:text-[#4A5FFF]/30">
-                      {(index + 1).toString().padStart(2, '0')}
-                    </span>
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="bg-[#3444D5]/5 dark:bg-[#4A5FFF]/5 p-3 rounded-lg">
+                    {service.icon}
                   </div>
-                  
-                  <h3 className="text-2xl font-bold text-[#3444D5] dark:text-[#4A5FFF] mb-4">{service.title}</h3>
-                  
-                  <div className="space-y-3 flex-grow">
-                    {service.items.map((item) => (
-                      <div key={item} className="flex items-start gap-3 group/item">
-                        <CheckCircle className="w-5 h-5 text-[#3444D5] dark:text-[#4A5FFF] shrink-0 mt-1 
-                                              group-hover/item:scale-110 transition-transform" />
-                        <span className="text-[#0A0320] dark:text-white/90 group-hover:text-[#3444D5] 
-                                       dark:group-hover:text-[#4A5FFF] transition-colors">
-                          {item}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="mt-6 pt-4 border-t border-primary/10 dark:border-[#4A5FFF]/20">
-                    <Button 
-                      variant="outline" 
-                      className="w-full group/btn border-primary/20 dark:border-[#4A5FFF]/20 
-                               hover:bg-primary/10 dark:hover:bg-[#4A5FFF]/10
-                               hover:border-primary/40 dark:hover:border-[#4A5FFF]/40
-                               dark:text-white"
-                    >
-                      Learn More
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </Button>
-                  </div>
+                  <h3 className="text-2xl font-bold text-[#3444D5] dark:text-[#4A5FFF]">
+                    {service.title}
+                  </h3>
+                </div>
+
+                <div className="space-y-4">
+                  {service.items.map((item) => (
+                    <div key={item} className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-[#3444D5] dark:text-[#4A5FFF] shrink-0 mt-0.5" />
+                      <span className="text-[#0A0320]/80 dark:text-white/80">
+                        {item}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </motion.div>
             ))}
@@ -115,38 +52,38 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Features Section with Improved Layout */}
-      <section className="px-4 sm:px-6 lg:px-8 py-20 bg-gradient-to-b from-transparent to-black/50 dark:from-[#000531] dark:to-[#000531]">
+      {/* Features Section */}
+      <section className="px-4 sm:px-6 lg:px-8 py-20 bg-gradient-to-br from-[#3444D5]/5 via-[#3444D5]/10 to-[#3444D5]/5 dark:from-[#000531] dark:via-[#000531]/90 dark:to-[#000531]">
         <div className="max-w-7xl mx-auto">
-          <motion.div
+          <motion.h2 
+            className="text-4xl md:text-5xl font-bold text-center mb-16 text-[#3444D5] dark:text-white"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#3444D5] dark:text-[#4A5FFF]">Why Choose Us</h2>
-            <p className="text-muted-foreground dark:text-white/70 max-w-2xl mx-auto">
-              We combine technical expertise with creative innovation to deliver exceptional results
-            </p>
-          </motion.div>
+            Why Choose Us
+          </motion.h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
+          <div className="grid gap-8 max-w-4xl mx-auto">
+            {whyChooseUs.map((item, index) => (
               <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                key={item.text}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="glass-card text-center group hover:bg-white/5 dark:hover:bg-[#4A5FFF]/5 p-8 dark:bg-[#000531]/50"
+                className="flex items-center gap-6 group"
               >
-                <div className="relative inline-block mb-6">
-                  <div className="absolute inset-0 bg-primary/20 dark:bg-[#4A5FFF]/20 blur-xl rounded-full" />
-                  <div className="relative text-primary dark:text-[#4A5FFF]">{feature.icon}</div>
+                <div className="relative shrink-0">
+                  <div className="absolute inset-0 bg-[#3444D5] dark:bg-[#4A5FFF] rounded-full blur-lg opacity-20 group-hover:opacity-40 transition-opacity" />
+                  <div className="relative w-12 h-12 flex items-center justify-center bg-white dark:bg-[#000531] rounded-full border-2 border-[#3444D5] dark:border-[#4A5FFF]">
+                    <span className="text-xl font-bold text-[#3444D5] dark:text-[#4A5FFF]">
+                      {index + 1}
+                    </span>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold mb-4 text-[#3444D5] dark:text-[#4A5FFF]">{feature.title}</h3>
-                <p className="text-[#0A0320] dark:text-white/90 group-hover:text-[#3444D5] dark:group-hover:text-[#4A5FFF] transition-colors">
-                  {feature.description}
+                <p className="text-xl text-[#0A0320] dark:text-white group-hover:text-[#3444D5] dark:group-hover:text-[#4A5FFF] transition-colors">
+                  {item.text}
                 </p>
               </motion.div>
             ))}
@@ -160,7 +97,7 @@ export default function Services() {
 const services = [
   {
     title: "Strategy",
-    icon: <Target className="w-12 h-12 text-primary animate-pulse-soft" />,
+    icon: <Target className="w-6 h-6 text-[#3444D5] dark:text-[#4A5FFF]" />,
     items: [
       "Go-to-market",
       "Token launch",
@@ -171,7 +108,7 @@ const services = [
   },
   {
     title: "Growth",
-    icon: <TrendingUp className="w-12 h-12 text-primary animate-float" />,
+    icon: <TrendingUp className="w-6 h-6 text-[#3444D5] dark:text-[#4A5FFF]" />,
     items: [
       "Social media management",
       "Content writing",
@@ -185,7 +122,7 @@ const services = [
   },
   {
     title: "Traffic Sources",
-    icon: <Globe2 className="w-12 h-12 text-primary animate-spin-slow" />,
+    icon: <Globe2 className="w-6 h-6 text-[#3444D5] dark:text-[#4A5FFF]" />,
     items: [
       "SEO & SAO",
       "PPC",
@@ -197,7 +134,7 @@ const services = [
   },
   {
     title: "Design",
-    icon: <Palette className="w-12 h-12 text-primary animate-enhanced-float" />,
+    icon: <Palette className="w-6 h-6 text-[#3444D5] dark:text-[#4A5FFF]" />,
     items: [
       "Branding",
       "Rebranding",
@@ -209,20 +146,26 @@ const services = [
   }
 ];
 
-const features = [
+const whyChooseUs = [
   {
-    title: "Custom Approach",
-    description: "Tailored solutions for each client's unique needs",
-    icon: <Target className="w-12 h-12 text-primary animate-pulse-soft" />
+    text: "Custom approach to work"
   },
   {
-    title: "Innovation",
-    description: "Latest technologies and creative solutions",
-    icon: <Zap className="w-12 h-12 text-primary animate-float" />
+    text: "Focus on the result"
   },
   {
-    title: "Results Driven",
-    description: "Focus on achieving measurable outcomes",
-    icon: <BarChart3 className="w-12 h-12 text-primary animate-enhanced-float" />
+    text: "Multifunctional and innovative approach"
+  },
+  {
+    text: "Expertise from leading specialists"
+  },
+  {
+    text: "Creative approach to problem-solving"
+  },
+  {
+    text: "A wide number of services"
+  },
+  {
+    text: "Confidence and peace of mind for all marketing activities in your business"
   }
 ];

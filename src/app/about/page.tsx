@@ -19,15 +19,127 @@ export default function About() {
           >
             <span className="text-[#3444D5] dark:text-[#3444D5]">Our Team</span>
           </motion.h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {teamMembers.map((member) => (
-              <TeamMember
-                key={member.name}
-                name={member.name}
-                role={member.role}
-                image={member.image}
+
+          {/* Top Row - Leadership */}
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <TeamMember
+              name="Luiza Shapiro"
+              role="CEO"
+              image="/Luiza.webp"
+            />
+            <TeamMember
+              name="Maryna Balatska"
+              role="CTO"
+              image="/CTO.jpg"
+            />
+            <TeamMember
+              name="Iryna Shaitan"
+              role="COO"
+              image="/COO.webp"
+            />
+            <TeamMember
+              name="Helena Anokhina"
+              role="CCO"
+              image="/CCO.jpg"
+            />
+          </div>
+
+          {/* Bottom Row - Team */}
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <TeamMember
+              name="Vadim Vladimirov"
+              role="Head of SEO"
+              image="/HeadofCEO.webp"
+            />
+            <TeamMember
+              name="Polina Khlebnikova"
+              role="HR Manager"
+              image="/HR Manager.webp"
+            />
+            <TeamMember
+              name="Anna Koretska"
+              role="Account Manager"
+              image="/Accountmanager.webp"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Team Photos Section 1 */}
+      <section className="px-4 sm:px-6 lg:px-8 mb-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-12 gap-4">
+            {/* First row */}
+            <motion.div
+              className="col-span-12 md:col-span-6 relative aspect-[4/3] rounded-xl overflow-hidden group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <img
+                src="/teamphotos/teamphoto1.webp"
+                alt="Team photo 1"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
-            ))}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </motion.div>
+
+            <motion.div
+              className="col-span-12 md:col-span-6 relative aspect-[4/3] rounded-xl overflow-hidden group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <img
+                src="/teamphotos/teamphoto2.webp"
+                alt="Team photo 2"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </motion.div>
+
+            {/* Second row */}
+            <motion.div
+              className="col-span-12 md:col-span-4 relative aspect-square rounded-xl overflow-hidden group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <img
+                src="/teamphotos/teamphoto3.webp"
+                alt="Team photo 3"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </motion.div>
+
+            <motion.div
+              className="col-span-12 md:col-span-4 relative aspect-square rounded-xl overflow-hidden group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <img
+                src="/teamphotos/teamphoto4.webp"
+                alt="Team photo 4"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </motion.div>
+
+            <motion.div
+              className="col-span-12 md:col-span-4 relative aspect-square rounded-xl overflow-hidden group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <img
+                src="/teamphotos/teamphoto5.webp"
+                alt="Team photo 5"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </motion.div>
           </div>
         </div>
       </section>
@@ -60,102 +172,245 @@ export default function About() {
         </div>
       </section>
 
+      {/* Team Photos Section 2 */}
+      <section className="px-4 sm:px-6 lg:px-8 mb-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-12 gap-4">
+            {/* First row */}
+            <motion.div
+              className="col-span-12 md:col-span-8 relative aspect-video rounded-xl overflow-hidden group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <img
+                src="/teamphotos/teamphoto6.webp"
+                alt="Team photo 6"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </motion.div>
+
+            <motion.div
+              className="col-span-12 md:col-span-4 relative aspect-[3/4] rounded-xl overflow-hidden group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <img
+                src="/teamphotos/teamphoto7.webp"
+                alt="Team photo 7"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </motion.div>
+
+            {/* Second row */}
+            <motion.div
+              className="col-span-6 md:col-span-4 relative aspect-square rounded-xl overflow-hidden group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <img
+                src="/teamphotos/teamphoto8.webp"
+                alt="Team photo 8"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </motion.div>
+
+            <motion.div
+              className="col-span-6 md:col-span-4 relative aspect-square rounded-xl overflow-hidden group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <img
+                src="/teamphotos/teamphoto9.webp"
+                alt="Team photo 9"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </motion.div>
+
+            <motion.div
+              className="col-span-12 md:col-span-4 relative aspect-square rounded-xl overflow-hidden group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <img
+                src="/teamphotos/teamphoto10.webp"
+                alt="Team photo 10"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </motion.div>
+
+            {/* Last row */}
+            <motion.div
+              className="col-span-12 md:col-span-6 relative aspect-video rounded-xl overflow-hidden group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <img
+                src="/teamphotos/teamphoto11.webp"
+                alt="Team photo 11"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </motion.div>
+
+            <motion.div
+              className="col-span-12 md:col-span-6 relative aspect-video rounded-xl overflow-hidden group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <img
+                src="/teamphotos/teamphoto12.webp"
+                alt="Team photo 12"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Partners Section */}
-      <section className="px-4 sm:px-6 lg:px-8">
+      <section className="px-4 sm:px-6 lg:px-8 mb-20">
         <div className="max-w-7xl mx-auto">
           <motion.h2 
-            className="text-3xl font-bold text-center mb-12 text-[#0A0320] dark:text-white"
+            className="text-3xl font-bold text-center mb-16 text-[#0A0320] dark:text-white"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
             <span className="text-[#3444D5] dark:text-[#3444D5]">Our Partners</span>
           </motion.h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {partners.map((partner) => (
-              <div key={partner.name} className="bg-white/80 dark:bg-[#0A0320]/80 backdrop-blur-sm p-6 rounded-lg border border-[#0A0320]/10 dark:border-white/10 hover:border-[#0A0320]/20 dark:hover:border-white/20 transition-colors group">
-                <div className="relative aspect-video flex items-center justify-center">
-                  <div className="w-full h-full rounded-lg bg-gradient-to-br from-[#3444D5]/10 to-transparent flex items-center justify-center p-4 group-hover:scale-105 transition-transform duration-300">
-                    <span className="text-xl font-bold text-[#3444D5] dark:text-[#3444D5] text-center group-hover:text-[#FE5431] transition-colors">
-                      {partner.name}
-                    </span>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#3444D5]/5 via-transparent to-[#3444D5]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+          {/* Top Row - 4 partners */}
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <motion.div
+              className="group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <div className="bg-white/80 dark:bg-[#0A0320]/80 backdrop-blur-sm p-6 rounded-xl border border-[#3444D5]/10 dark:border-[#3444D5]/20 hover:border-[#3444D5]/30 transition-all duration-300 group-hover:shadow-lg">
+                <div className="aspect-video flex items-center justify-center">
+                  <span className="text-xl font-bold text-[#3444D5] dark:text-white group-hover:scale-105 transition-transform duration-300">
+                    Google Marketing Platform
+                  </span>
                 </div>
               </div>
-            ))}
+            </motion.div>
+
+            <motion.div
+              className="group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <div className="bg-white/80 dark:bg-[#0A0320]/80 backdrop-blur-sm p-6 rounded-xl border border-[#3444D5]/10 dark:border-[#3444D5]/20 hover:border-[#3444D5]/30 transition-all duration-300 group-hover:shadow-lg">
+                <div className="aspect-video flex items-center justify-center">
+                  <span className="text-xl font-bold text-[#3444D5] dark:text-white group-hover:scale-105 transition-transform duration-300">
+                    Meta Business
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <div className="bg-white/80 dark:bg-[#0A0320]/80 backdrop-blur-sm p-6 rounded-xl border border-[#3444D5]/10 dark:border-[#3444D5]/20 hover:border-[#3444D5]/30 transition-all duration-300 group-hover:shadow-lg">
+                <div className="aspect-video flex items-center justify-center">
+                  <span className="text-xl font-bold text-[#3444D5] dark:text-white group-hover:scale-105 transition-transform duration-300">
+                    Google Partner
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+            >
+              <div className="bg-white/80 dark:bg-[#0A0320]/80 backdrop-blur-sm p-6 rounded-xl border border-[#3444D5]/10 dark:border-[#3444D5]/20 hover:border-[#3444D5]/30 transition-all duration-300 group-hover:shadow-lg">
+                <div className="aspect-video flex items-center justify-center">
+                  <span className="text-xl font-bold text-[#3444D5] dark:text-white group-hover:scale-105 transition-transform duration-300">
+                    Ethereum
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Bottom Row - 3 partners */}
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <motion.div
+              className="group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+            >
+              <div className="bg-white/80 dark:bg-[#0A0320]/80 backdrop-blur-sm p-6 rounded-xl border border-[#3444D5]/10 dark:border-[#3444D5]/20 hover:border-[#3444D5]/30 transition-all duration-300 group-hover:shadow-lg">
+                <div className="aspect-video flex items-center justify-center">
+                  <span className="text-xl font-bold text-[#3444D5] dark:text-white group-hover:scale-105 transition-transform duration-300">
+                    Solana
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+            >
+              <div className="bg-white/80 dark:bg-[#0A0320]/80 backdrop-blur-sm p-6 rounded-xl border border-[#3444D5]/10 dark:border-[#3444D5]/20 hover:border-[#3444D5]/30 transition-all duration-300 group-hover:shadow-lg">
+                <div className="aspect-video flex items-center justify-center">
+                  <span className="text-xl font-bold text-[#3444D5] dark:text-white group-hover:scale-105 transition-transform duration-300">
+                    Near
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.7 }}
+            >
+              <div className="bg-white/80 dark:bg-[#0A0320]/80 backdrop-blur-sm p-6 rounded-xl border border-[#3444D5]/10 dark:border-[#3444D5]/20 hover:border-[#3444D5]/30 transition-all duration-300 group-hover:shadow-lg">
+                <div className="aspect-video flex items-center justify-center">
+                  <span className="text-xl font-bold text-[#3444D5] dark:text-white group-hover:scale-105 transition-transform duration-300">
+                    Polygon
+                  </span>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
     </PageLayout>
   )
 }
-
-const teamMembers = [
-  {
-    name: "Luiza Shapiro",
-    role: "CEO",
-    image: "/Luiza.webp"
-  },
-  {
-    name: "Maryna Balatska",
-    role: "CTO",
-    image: "/CTO.jpg"
-  },
-  {
-    name: "Iryna Shaitan",
-    role: "COO",
-    image: "/COO.webp"
-  },
-  {
-    name: "Helena Anokhina",
-    role: "CCO",
-    image: "/CCO.jpg"
-  },
-  {
-    name: "Vadim Vladimirov",
-    role: "Head of SEO",
-    image: "/HeadofCEO.webp"
-  },
-  {
-    name: "Polina Khlebnikova",
-    role: "HR Manager",
-    image: "/HR Manager.webp"
-  },
-  {
-    name: "Anna Koretska",
-    role: "Account Manager", 
-    image: "/Accountmanager.webp"
-  },
-];
-
-const partners = [
-  {
-    name: "Google Marketing Platform",
-    logo: "/partners/google-marketing.svg"
-  },
-  {
-    name: "Meta Business",
-    logo: "/partners/meta.svg"
-  },
-  {
-    name: "Google Partner",
-    logo: "/partners/google-partner.svg"
-  },
-  {
-    name: "Ethereum",
-    logo: "/partners/ethereum.svg"
-  },
-  {
-    name: "Solana",
-    logo: "/partners/solana.svg"
-  },
-  {
-    name: "Near",
-    logo: "/partners/near.svg"
-  },
-  {
-    name: "Polygon",
-    logo: "/partners/polygon.svg"
-  }
-];

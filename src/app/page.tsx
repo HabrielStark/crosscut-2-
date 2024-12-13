@@ -1,12 +1,22 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Partners } from '@/components/partners'
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
   const { scrollYProgress } = useScroll()
+  const navigate = useNavigate();
   
   const textOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
   const textY = useTransform(scrollYProgress, [0, 0.3], [0, -50])
   
+  const handleGetStarted = () => {
+    navigate('/contact');
+  };
+
+  const handleLearnMore = () => {
+    navigate('/services');
+  };
+
   return (
     <main className="min-h-screen bg-brand-white dark:bg-[#000531] relative">
       {/* Animated Background */}
@@ -77,10 +87,16 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="flex justify-center gap-6"
             >
-              <button className="px-8 py-4 bg-gradient-to-r from-[#3444D5] to-[#FE5431] rounded-lg text-white font-bold text-lg hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-[#FE5431]/20">
+              <button 
+                onClick={handleGetStarted}
+                className="px-8 py-4 bg-gradient-to-r from-[#3444D5] to-[#FE5431] rounded-lg text-white font-bold text-lg hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-[#FE5431]/20"
+              >
                 Get Started
               </button>
-              <button className="px-8 py-4 border-2 border-[#3444D5] rounded-lg text-[#3444D5] font-bold text-lg hover:scale-105 transition-all duration-300 hover:bg-[#3444D5]/5">
+              <button 
+                onClick={handleLearnMore}
+                className="px-8 py-4 border-2 border-[#3444D5] rounded-lg text-[#3444D5] font-bold text-lg hover:scale-105 transition-all duration-300 hover:bg-[#3444D5]/5"
+              >
                 Learn More
               </button>
             </motion.div>
@@ -161,6 +177,216 @@ export default function Home() {
             </div>
           </div>
         </motion.div>
+      </section>
+
+      {/* Values Section */}
+      <section className="relative min-h-screen py-32 overflow-hidden perspective-1000">
+        {/* Modern Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-white/50 dark:from-[#000531] dark:via-[#000531] dark:to-[#000531]/90">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(52,68,213,0.08),transparent_70%)]" />
+        </div>
+
+        <motion.div 
+          className="container mx-auto px-4 relative z-10"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
+          viewport={{ once: true }}
+        >
+          {/* Modern Header */}
+          <div className="text-center mb-20 relative">
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              transition={{ 
+                type: "spring",
+                stiffness: 260,
+                damping: 20 
+              }}
+              className="relative inline-block"
+            >
+              <div className="text-7xl md:text-8xl font-black relative z-10 
+                            bg-gradient-to-r from-[#3444D5] via-[#8B5CF6] to-[#FE5431] 
+                            bg-clip-text text-transparent 
+                            animate-[gradient_3s_ease_infinite]
+                            [background-size:200%]"
+              >
+                Our Values
+              </div>
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#3444D5]/20 to-[#FE5431]/20 
+                            blur-xl rounded-lg animate-pulse" />
+            </motion.div>
+          </div>
+
+          {/* Modern Grid Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
+            {[
+              {
+                title: "Honesty",
+                description: "We value transparency and truthfulness in all our interactions",
+                color: "#3444D5",
+                rotation: 5
+              },
+              {
+                title: "Openness",
+                description: "We maintain an open mindset and welcome new ideas and perspectives",
+                color: "#FE5431",
+                rotation: -5
+              },
+              {
+                title: "Multiculturalism",
+                description: "We embrace and celebrate diversity in our global community",
+                color: "#8B5CF6",
+                rotation: 5
+              },
+              {
+                title: "Clear Identification of the Business Problem",
+                description: "We focus on understanding and defining challenges precisely",
+                color: "#3444D5",
+                rotation: -5
+              },
+              {
+                title: "Professional Approach to Solving Challenges",
+                description: "We tackle every project with expertise and dedication",
+                color: "#FE5431",
+                rotation: 5
+              },
+              {
+                title: "A Lot of Creativity",
+                description: "We bring innovative and creative solutions to every project",
+                color: "#8B5CF6",
+                rotation: -5
+              }
+            ].map((value, index) => (
+              <motion.div
+                key={value.title}
+                className="group perspective"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                viewport={{ once: true }}
+              >
+                <motion.div
+                  className="relative preserve-3d cursor-pointer"
+                  whileHover={{ 
+                    rotateX: value.rotation,
+                    rotateY: value.rotation,
+                    scale: 1.05,
+                    z: 20
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  {/* Card */}
+                  <div className="relative h-[300px] rounded-2xl p-8 bg-white dark:bg-[#000531]/50
+                                backdrop-blur-xl border border-[#3444D5]/10 dark:border-[#4A5FFF]/10
+                                group-hover:border-[#3444D5]/30 dark:group-hover:border-[#4A5FFF]/30
+                                shadow-lg hover:shadow-xl transition-all duration-500
+                                overflow-hidden"
+                  >
+                    {/* Gradient Background */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#3444D5]/5 to-[#FE5431]/5" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="relative h-full flex flex-col justify-between">
+                      <div>
+                        <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-[#3444D5] to-[#FE5431] 
+                                     bg-clip-text text-transparent transform group-hover:translate-x-2 
+                                     transition-transform duration-500"
+                        >
+                          {value.title}
+                        </h3>
+                        <p className="text-[#0A0320]/70 dark:text-white/70 text-lg leading-relaxed 
+                                    transform group-hover:translate-x-2 transition-transform duration-500 delay-75"
+                        >
+                          {value.description}
+                        </p>
+                      </div>
+
+                      {/* Decorative Elements */}
+                      <div className="flex justify-between items-end">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#3444D5]/10 to-[#FE5431]/10
+                                      transform group-hover:scale-110 transition-transform duration-500" />
+                        <div className="text-6xl font-black text-[#3444D5]/5 dark:text-white/5">
+                          {String(index + 1).padStart(2, '0')}
+                        </div>
+                      </div>
+
+                      {/* Animated Border */}
+                      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#3444D5] to-[#FE5431] 
+                                    transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                      <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-[#3444D5] to-[#FE5431] 
+                                    transform scale-y-0 group-hover:scale-y-100 transition-transform duration-500 delay-100" />
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Subtle Grid Overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(52,68,213,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(52,68,213,0.05)_1px,transparent_1px)] 
+                       bg-[size:100px_100px] opacity-20 dark:opacity-10" />
+      </section>
+
+      {/* Team Vision Section */}
+      <section className="relative py-32 overflow-hidden">
+        {/* Dynamic Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-white/50 dark:from-[#000531] dark:via-[#000531] dark:to-[#000531]/90">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(52,68,213,0.1),transparent_70%)]" />
+        </div>
+
+        <div className="container relative mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="relative">
+              {/* Main Content */}
+              <div className="grid md:grid-cols-[2.5fr,3.5fr] gap-12 items-center">
+                {/* Left Side - Highlight */}
+                <div className="relative bg-white/20 dark:bg-[#000531]/20 backdrop-blur-xl rounded-2xl p-10
+                            border border-[#3444D5]/10 dark:border-[#4A5FFF]/10
+                            transform hover:scale-[1.02] transition-all duration-500
+                            hover:shadow-xl hover:shadow-[#3444D5]/5 dark:hover:shadow-[#4A5FFF]/5">
+                  <div className="relative z-10">
+                    <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#3444D5] via-[#8B5CF6] to-[#FE5431] 
+                                bg-clip-text text-transparent animate-gradient [background-size:200%_auto]">
+                      THE BASIS OF A GOOD TEAM IS PEOPLE.
+                    </h2>
+                  </div>
+                  {/* Decorative Elements */}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#3444D5]/5 to-transparent opacity-50" />
+                  <div className="absolute -bottom-1 left-0 right-0 h-1 bg-gradient-to-r from-[#3444D5] via-[#8B5CF6] to-[#FE5431]" />
+                </div>
+
+                {/* Right Side - Details */}
+                <div className="relative space-y-8">
+                  <div className="relative bg-white/10 dark:bg-[#000531]/10 backdrop-blur-xl rounded-2xl p-8
+                              border-l-4 border-[#3444D5] dark:border-[#4A5FFF]
+                              hover:shadow-lg transition-all duration-300">
+                    <p className="text-xl md:text-2xl text-[#0A0320]/70 dark:text-white/70">
+                      IN A CROSSCULT, EACH PERSON IS NOT JUST AN EMPLOYEE, IT IS PART OF ONE BIG TEAM.
+                    </p>
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#3444D5]/5 to-transparent rounded-full blur-xl" />
+                  </div>
+
+                  <div className="relative bg-white/10 dark:bg-[#000531]/10 backdrop-blur-xl rounded-2xl p-8
+                              border-l-4 border-[#FE5431]
+                              hover:shadow-lg transition-all duration-300">
+                    <p className="text-xl md:text-2xl text-[#0A0320]/70 dark:text-white/70">
+                      OUR GOAL IS TO MAKE EVERYONE FEEL COMFORTABLE AND SEE THAT THE COMPANY SUPPORTS THEIR INTERESTS AND VALUES.
+                    </p>
+                    <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-br from-[#FE5431]/5 to-transparent rounded-full blur-xl" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Background Elements */}
+              <div className="absolute -top-20 -right-20 w-96 h-96 bg-[#3444D5]/5 rounded-full blur-3xl animate-pulse" />
+              <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-[#FE5431]/5 rounded-full blur-3xl animate-pulse delay-1000" />
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Partners Section */}

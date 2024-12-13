@@ -15,6 +15,13 @@ export function Footer() {
             <p className="text-muted-foreground dark:text-white/70">
               Formula for your success - Together we move forward
             </p>
+            <div className="relative w-32 h-32">
+              <img 
+                src="/luizapixel.png" 
+                alt="CrossCult Mascot" 
+                className="w-full h-full object-contain hover:scale-105 transition-transform"
+              />
+            </div>
           </div>
 
           {/* Quick Links */}
